@@ -1,0 +1,14 @@
+{
+  "name": "multivetismc-bot",
+  "version": "1.0.0",
+  "description": "The Discord bot for MultiveitsMc that make the automatic boring stuff of Discord, part of the code are forked from my own bot.",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main"
+  },
+  "author": "Peperehobbits01",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  }
+}

@@ -8,7 +8,7 @@ module.exports = {
         permission: Discord.PermissionFlagsBits.ManageMessages,
         dm: false,
         category: "・Tickets",
-        option: [
+        options: [
             {
                 type: "user",
                 name: "membre",
@@ -56,7 +56,7 @@ module.exports = {
                     ViewChannel: true
                 })
 
-                const AjoutMembreSuccess = new EmbedBuilder()
+                const AjoutMembreSuccess = new Discord.EmbedBuilder()
                 .setTitle('Ticket')
                 .setDescription(`${user.id} a bien été ajouter au ticket.`)
                 .setColor(bot.color)

@@ -1,16 +1,15 @@
 const Discord = require('discord.js');
-const row = require('../../TicketBot/src/configs/rows/rowTickets/row');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('setup')
-        .setDescription('Setup ticket !')
-        .setDMPermission(false)
-        .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
-        .setNSFW(false),
+    
+    name: "setup",
+    description: "Setup ticket !",
+    permission: Discord.PermissionFlagsBits.ManageChannels,
+    dm: false,
+    category: "・Tickets",
 
-    async execute(interaction) {
-        const embed = new EmbedBuilder()
+    async run(message) {
+        const SetupTicket = new Discord.EmbedBuilder()
             .setTitle('Ticket')
             .addFields(
                 { name: 'Catégorie', value: ':x:', inline: true },
@@ -18,6 +17,22 @@ module.exports = {
             )
             .setColor('#0099ff')
             .setTimestamp();
-        return interaction.reply({ embeds: [embed], components: [row] });
+
+        const row = new Discord.ActionRowBuilder()
+        .addComponents(
+            new Discord.ButtonBuilder()
+                .setCustomId('category')
+                .setLabel('Catégorie')
+                .setStyle('Primary'),
+            new Discord.ButtonBuilder()
+                .setCustomId('channel')
+                .setLabel('Salon')
+                .setStyle('Primary'),
+            new Discord.ButtonBuilder()
+                .setCustomId('valid')
+                .setLabel('Valider')
+                .setStyle('Success'),
+        )
+        return message.reply({ embeds: [SetupTicket], components: [row] });
     }
 }

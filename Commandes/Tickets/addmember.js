@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const { embedAdd } = require('../../TicketBot/src/configs/embeds/Ticket');
 
 module.exports = {
 

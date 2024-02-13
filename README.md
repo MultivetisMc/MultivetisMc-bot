@@ -56,11 +56,14 @@ node main
 │   └───Tickets
 │           Tickets related commands.
 │
+├───Components
+│       Bout de code utilisée dans plusieurs partie du bot
+│
 ├───Events
 │       Discord related events.       
 │
 ├───Fonctions
-│       Foncitons fils required to run some commands.
+│       Fonctions fils required to run some commands.
 │
 └───Loaders
         The loaders that load the events and commands files.

@@ -36,7 +36,7 @@ module.exports = async(bot, oldMember, newMember) => {
 
   if(!guild.oldMember.name && guild.newMember.name) {
 
-    const logsChannel = "931457930660835333"
+    const logsChannel = guild.channels.cache.get("931457930660835333")
 
     const updateName = new Discord.EmbedBuilder()
         .setColor(bot.color)

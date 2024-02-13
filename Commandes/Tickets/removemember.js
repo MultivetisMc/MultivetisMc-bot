@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 
 module.exports = {
     
-    name:"remove",
-    description:"Retirer un membre au ticket",
+    name: "removemember",
+    description: "Retirer un membre au ticket",
     permission: Discord.PermissionFlagsBits.ManageMessages,
     dm: false,
     category: "・Tickets",

@@ -6,7 +6,7 @@ module.exports = async(bot, oldState, newState, user) => {
 
   const oldChannel = oldState.channel;
   const newChannel = newState.channel;
-  const logsChannel = "931457930660835333"
+  const logsChannel = oldState.guild.channels.cache.get("931457930660835333")
   
   if (!oldChannel && newChannel) {
 

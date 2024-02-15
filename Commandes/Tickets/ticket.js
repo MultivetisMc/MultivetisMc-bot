@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { executeQuery } = require('../../Fonctions/databaseConnect')
 
 module.exports = {
 
@@ -10,14 +11,15 @@ module.exports = {
 
     async run(message) {
 
-        const req = await message.client.db.selectone('tickets', 'guildId', message.guild.id);
+        const querySearch = `SELECT * FROM tickets WHERE guild = '${message.guild.id}'`
+        const ResultsSearch = await executeQuery(querySearch)
         const yesopenTicketEmbed = new Discord.EmbedBuilder()
         .setTitle('Ticket')
         .setDescription(`Envoie de l'embed du ticket...`)
         .setColor(bot.color)
         .setTimestamp()
 
-        if (req.length < 1) {
+        if (ResultsSearch.length < 1) {
             
             const msg = await message.reply({embeds: [yesopenTicketEmbed], ephemeral: true});
             setTimeout(async() => {
@@ -27,7 +29,7 @@ module.exports = {
             }, 2000);
         } else {
 
-            const channel = message.guild.channels.cache.get(req[0].channel);
+            const channel = message.guild.channels.cache.get(ResultsSearch[0].channel);
             const embedTicketOpen = new Discord.EmbedBuilder()
             .setTitle('Ouverture de Ticket !')
             .setColor(bot.color)

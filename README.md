@@ -1,4 +1,32 @@
+# About MultivetisMc bot
+
+Not availble yet.
+
 # Installation of development environnement
+
+## Requirements to run/program the software
+
+| Software           | Version          | More information             |
+| ------------------ | ---------------- | ---------------------------- |
+| Node.js            | 20.x or higher   | Bundles javaScript and npm   |
+| MySQL              | 8.2.x or higher  | The database of the bot      |
+| git                | 2.25.1 or higher | Commands for Github          |
+
+### All the dependecies in the packages.json files.
+
+## Recommanded to run/program the software
+
+| Software           | Version          | More information             |
+| ------------------ | ---------------- | ---------------------------- |
+| phpMyAdmin         | 5.2.1 or higher  | Interface for MySQL          |
+| XAMPP              | 8.2.4 or higher  | Bundles MysQL and phpMyAdmin |
+| Visual Studio Code | 1.86.2 or higher | Recommended IDE              |
+
+### Recommanded extention in the .vscode folder for Visual Studio Code users.
+
+XAMPP : or higher (This program bundles Mysql and phpMyAdmin).
+
+## Setting up your enviremont whitout docker
 
 #### After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :
 
@@ -6,13 +34,16 @@
 npm install
 ```
 
-#### Do database migrations :
+#### Do database install :
 
-Not possible yet but will be introduced in the future.
+Pretty simple, take the **.sql file in the code** and drag and drop it into your **MySQL database whit phpMyAdmin** if you have it, if you don't just use the **command line** and do this :
+```
+mysql -u theusername -p yourpassword db_name < Bot-setup-database.sql
+```
 
 #### Config files :
 
-You have to create your own config.js file and adding your token of bot
+You have to create your own config.js file and adding your token of bot.
 Here is what it should looks like :
 ```javascript
 module.exports = {
@@ -20,6 +51,8 @@ module.exports = {
     "token" : "YourTokenHere"
 }
 ```
+
+We will add a **big config files to configure other stuff** like embeds message in the future.
 #### To test the application :
 
 Simply run :
@@ -27,6 +60,16 @@ Simply run :
 ```
 node main
 ```
+
+I recommended checking out the [GPL-3.0 lisence file](https://github.com/MultivetisMc/MultivetisMc-bot/blob/main/LICENSE) before using the software.If you what to help us code the software, I recommended you also checking out the [Code of conduct]() the [CONTRIBUITING.md file]() and the [PULL_REQUEST_TEMPLATE.md file]().
+
+## Setting up your enviremont whit docker :
+
+### Comming soon...
+
+# What's next for the project?
+
+### Comming soon...
 
 # Project architecture
 
@@ -41,6 +84,14 @@ node main
 │   README.md
 │   anti-crash.js
 │   Config.js
+│   SECURITY.md
+│   Bot-setup-database.sql
+│
+├───.github
+│       Essentials files for the github repos.
+│
+├───.vscode
+│       Recommend visual studio code extentions for coding in the repo.
 │
 ├───Commands
 │   │   
@@ -67,11 +118,4 @@ node main
 │
 └───Loaders
         The loaders that load the events and commands files.
-
 ```
-
-# Requirements
-
-### Node.js
-
-Le reste bientôt...

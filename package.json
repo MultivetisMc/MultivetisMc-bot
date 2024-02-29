@@ -4,9 +4,9 @@
   "description": "The Discord bot for MultiveitsMc that make the automatic boring stuff of Discord, part of the code are forked from my own bot.",
   "main": "main.js",
   "scripts": {
-    "test": "node main"
+    "test": "node main-workflow"
   },
-  "author": "Peperehobbits01",
+  "author": "Peperehobbits01 and others",
   "license": "GPL-3.0-only",
   "dependencies": {
     "axios": "^1.6.4",

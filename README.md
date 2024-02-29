@@ -24,8 +24,6 @@ Not availble yet.
 
 ### Recommanded extention in the .vscode folder for Visual Studio Code users.
 
-XAMPP : or higher (This program bundles Mysql and phpMyAdmin).
-
 ## Setting up your enviremont whitout docker
 
 #### After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :

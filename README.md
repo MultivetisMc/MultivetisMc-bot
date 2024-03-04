@@ -24,7 +24,7 @@ Not availble yet.
 
 ### Recommanded extention in the .vscode folder for Visual Studio Code users.
 
-## Setting up your enviremont whitout docker
+## Setting up your environnement whitout docker
 
 #### After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :
 
@@ -61,7 +61,7 @@ node main
 
 I recommended checking out the [GPL-3.0 lisence file](https://github.com/MultivetisMc/MultivetisMc-bot/blob/main/LICENSE) before using the software.If you what to help us code the software, I recommended you also checking out the [Code of conduct]() the [CONTRIBUITING.md file]() and the [PULL_REQUEST_TEMPLATE.md file]().
 
-## Setting up your enviremont whit docker :
+## Setting up your environnement whit docker :
 
 ### Comming soon...
 

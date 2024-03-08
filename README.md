@@ -82,7 +82,6 @@ I recommended checking out the [GPL-3.0 lisence file](https://github.com/Multive
 │   README.md
 │   anti-crash.js
 │   Config.js
-│   SECURITY.md
 │   Bot-setup-database.sql
 │
 ├───.github

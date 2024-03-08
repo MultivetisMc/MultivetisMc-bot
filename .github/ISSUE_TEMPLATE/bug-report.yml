@@ -3,7 +3,7 @@ description: File a bug report
 title: "[Bug]: "
 labels: [bug, "unverified"]
 assignees:
-  - samarmeena
+  - Peperehobbit01
 body:
   - type: markdown
     attributes:
@@ -50,8 +50,8 @@ body:
       label: Version
       description: What version of the software are you running?
       options:
-        - Stable
-        - Dev
+        - Stable = realesed on the realesed Github pages.
+        - Dev = donwloaded the latest version of the main branch.
     validations:
       required: true
 

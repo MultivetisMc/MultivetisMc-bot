@@ -28,7 +28,7 @@ Not availble yet.
 
 #### After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :
 
-```
+```shell
 npm install
 ```
 

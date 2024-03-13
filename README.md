@@ -105,7 +105,7 @@ I recommended checking out the [GPL-3.0 lisence file](https://github.com/Multive
 │           Tickets related commands.
 │
 ├───Components
-│       Bout de code utilisée dans plusieurs partie du bot
+│       Code parts used on multiple ereas by the bot.
 │
 ├───Events
 │       Discord related events.       

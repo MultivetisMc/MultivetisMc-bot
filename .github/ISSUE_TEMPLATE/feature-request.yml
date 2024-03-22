@@ -13,9 +13,9 @@ body:
   - type: textarea
     id: feature
     attributes:
-      label: Feature?
+      label: What is the New feature?
       description: Please describe the feature you are requesting in detail
-      placeholder: describe....
+      placeholder: 
     validations:
       required: true
 

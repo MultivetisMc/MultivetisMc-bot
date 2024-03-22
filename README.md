@@ -12,7 +12,7 @@ The MultivetisMc bot is coded in JavaScript using the discord.js packages to com
 | MySQL              | 8.2.x or higher  | The database of the bot      |
 | git                | 2.25.1 or higher | Commands for Github          |
 
-### All the dependecies in the packages.json files.
+**All the dependecies in the packages.json files.**
 
 ## Recommanded to run/program the software
 
@@ -22,24 +22,24 @@ The MultivetisMc bot is coded in JavaScript using the discord.js packages to com
 | XAMPP              | 8.2.4 or higher  | Bundles MysQL and phpMyAdmin |
 | Visual Studio Code | 1.86.2 or higher | Recommended IDE              |
 
-### Recommanded extention in the .vscode folder for Visual Studio Code users.
+**Recommanded extention in the .vscode folder for Visual Studio Code users.**
 
 ## Setting up your environnement whitout docker
 
-#### After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :
+**After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :**
 
 ```
 npm install
 ```
 
-#### Do database install :
+**Doing the database installation :**
 
 Pretty simple, take the **.sql file in the code** and drag and drop it into your **MySQL database whit phpMyAdmin** if you have it, if you don't just use the **command line** and do this :
 ```
 mysql -u theusername -p yourpassword db_name < Bot-setup-database.sql
 ```
 
-#### Config files :
+**About the Config files** :
 
 You have to create your own config.js file and adding your token of bot.
 Here is what it should looks like :
@@ -51,7 +51,7 @@ module.exports = {
 ```
 
 We will add a **big config files to configure other stuff** like embeds message in the future.
-#### To test the application :
+**To test the application :**
 
 Simply run :
 

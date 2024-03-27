@@ -4,7 +4,7 @@ In order for everyone to have the best experience possible, we have a few guidel
 - When submitting a pull request, please make sure you're using the [pull request template](PULL_REQUEST_TEMPLATE.md).
 
 ### Requirements
-There are some specific requirements you need to follow when making and proposing changes to mainhubmanager. This ensures order, consistency, and organization.  
+There are some specific requirements you need to follow when making and proposing changes to MultivetisMc bot. This ensures order, consistency, and organization.  
 *While some little requirements will probably be looked over, for the majority of these things, your PRs will be marked as invalid unless they're followed. Don't worry, they're not too hard :).*
 1. Fork the repository ([fork](https://github.com/MultivetisMc/MultivetisMc-bot/fork));
 2. Create a new branch with a description of the changes you're making (`git checkout -b super-brief-description`);

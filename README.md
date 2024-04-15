@@ -22,8 +22,6 @@ The MultivetisMc bot is coded in JavaScript using the discord.js packages to com
 | XAMPP              | 8.2.4 or higher  | Bundles MysQL and phpMyAdmin |
 | Visual Studio Code | 1.86.2 or higher | Recommended IDE              |
 
-**Recommanded extention in the .vscode folder for Visual Studio Code users.**
-
 ## Setting up your environnement whitout docker
 
 **After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :**

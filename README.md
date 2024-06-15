@@ -57,7 +57,7 @@ Simply run :
 node main
 ```
 
-I recommended checking out the [GPL-3.0 lisence file](https://github.com/MultivetisMc/MultivetisMc-bot/blob/main/LICENSE) before using the software. If you whant to help us code the software, I recommended you also checking out the [Code of conduct]() the [CONTRIBUITING.md file]() and the [PULL_REQUEST_TEMPLATE.md file]().
+I recommended checking out the [GPL-3.0 lisence file](https://github.com/MultivetisMc/MultivetisMc-bot/blob/main/LICENSE) before using the software. If you whant to help us code the software, I recommended you also checking out the [Code of conduct]() and the [CONTRIBUITING.md file]().
 
 ## Setting up your environnement whit docker :
 
@@ -82,11 +82,11 @@ I recommended checking out the [GPL-3.0 lisence file](https://github.com/Multive
 │   Config.js
 │   Bot-setup-database.sql
 │
+├───Config
+│       The folder containing the configs of the bot.
+│
 ├───.github
 │       Essentials files for the github repos.
-│
-├───.vscode
-│       Recommend visual studio code extentions for coding in the repo.
 │
 ├───Commands
 │   │   

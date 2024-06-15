@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `Discord-bot-database-setup`
+-- Base de données : `Discord-bot-database`
 --
 
 -- --------------------------------------------------------

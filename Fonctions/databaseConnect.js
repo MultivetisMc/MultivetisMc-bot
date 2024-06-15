@@ -1,12 +1,13 @@
 const mysql = require(`mysql2/promise`);
+const databaseConfig = require("../Config/DBConfig")
 
-const databaseConfig = {
-    connectionLimit: "10",
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "multivetismc-bot",
-};
+//const databaseConfig = {
+//    connectionLimit: "10",
+//    host: "localhost",
+//    user: "root",
+//    password: "",
+//    database: "multivetismc-bot",
+//};
 
 const pool = mysql.createPool(databaseConfig);
 

@@ -4,7 +4,7 @@ const { executeQuery } = require('../../Fonctions/databaseConnect')
 module.exports = {
 
     name: "ticket",
-    description: "Cree un ticket",
+    description: "Créer un ticket",
     permission: Discord.PermissionFlagsBits.ManageMessages,
     dm: false,
     category: "・Tickets",

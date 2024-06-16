@@ -10,8 +10,8 @@ module.exports = {
     dm: false,
     category: "・Tickets",
 
-    async run(message) {
+    async run(interaction) {
 
-        return message.reply({ embeds: [SelectChannelTypeEmbed], components: [SelectChannelTypeButton] });
+        return interaction.reply({ embeds: [SelectChannelTypeEmbed], components: [SelectChannelTypeButton] });
     }
 }

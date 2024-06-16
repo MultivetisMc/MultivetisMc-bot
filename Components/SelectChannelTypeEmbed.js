@@ -6,7 +6,7 @@ const SelectChannelTypeEmbed = new Discord.EmbedBuilder()
     { name: 'Catégorie', value: ':x:', inline: true },
     { name: 'Salon', value: ':x:', inline: true },
 )
-.setColor(bot.color)
+.setColor("#ac3015")
 .setTimestamp();
 
 module.exports = { SelectChannelTypeEmbed }

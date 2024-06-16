@@ -1,9 +1,0 @@
-{
-    "recommendations": [
-        "yzhang.markdown-all-in-one",
-        "hnw.vscode-auto-open-markdown-preview",
-        "eamodio.gitlens",
-        "donjayamanne.githistory",
-        "github.vscode-github-actions"
-    ]
-}

@@ -1,8 +1,8 @@
 const Discord = require("discord.js")
 const transticket = require('discord-html-transcripts')
 const { backButton } = require('../Components/BackButton')
-const { SelectChannelTypeButton } = require('../Components/SelectChannelTypeButton')
-const { SelectChannelTypeEmbed } = require('../Components/SelectChannelTypeEmbed')
+//const { SelectChannelTypeButton } = require('../Components/SelectChannelTypeButton')
+//const { SelectChannelTypeEmbed } = require('../Components/SelectChannelTypeEmbed')
 
 module.exports = async(interaction, bot) => {
 
@@ -220,23 +220,5 @@ module.exports = async(interaction, bot) => {
                     return interaction.reply({ content: 'Une erreur est survenue', ephemeral: true });
                 }
             };
-        }
-        if(interaction.isChannelSelectMenu()) {
-
-            if (interaction.customId === 'selectCategory') {
-                let field = SelectChannelTypeEmbed.data.fields[0];
-                const channel = interaction.bot.channels.cache.get(interaction.values[0]);
-                field.value = channel.name;
-
-                await interaction.update({ embeds: [SelectChannelTypeEmbed], components: [SelectChannelTypeButton] });
-            }
-            if(interaction.customId === 'selectChannel') {
-
-                let field = SelectChannelTypeEmbed.data.fields[1];
-                const channel = interaction.bot.channels.cache.get(interaction.values[0]);
-                field.value = channel.name;
-
-                await interaction.update({ embeds: [SelectChannelTypeEmbed], components: [SelectChannelTypeButton] });
-            }
-        }
     }
+}

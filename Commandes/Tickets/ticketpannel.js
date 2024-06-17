@@ -22,7 +22,7 @@ module.exports = {
             new Discord.ButtonBuilder()
            .setCustomId("ticketpannel")
            .setLabel("Créer un ticket support")
-           .setStyle(Discord.ButtonStyle.Primary)
+           .setStyle(Discord.ButtonStyle.Success)
            .setEmoji("📩")
         )
 

@@ -31,7 +31,7 @@ module.exports = {
 
         const TicketPanelSendReply = new Discord.EmbedBuilder()
         .setTitle("Ticket support de DoomCraft envoyée")
-        .setDescription(`Le panel du ticket support de DoomCraft a bien été envoyée dans le salon ${panelchannel.channel}`)
+        .setDescription(`Le panel du ticket support de DoomCraft a bien été envoyée dans le salon <#${panelchannel}>`)
         .setColor(bot.color)
         .setFooter({ text: botembedfooter, iconURL: bot.user.displayAvatarURL({ dynamic: true }) })
         

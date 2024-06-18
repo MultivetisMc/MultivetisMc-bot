@@ -37,18 +37,10 @@ Pretty simple, take the **.sql file in the code** and drag and drop it into your
 mysql -u theusername -p yourpassword db_name < Bot-setup-database.sql
 ```
 
-**About the Config files** :
+**Configuration of the project** :
 
-You have to create your own config.js file and adding your token of bot.
-Here is what it should looks like :
-```javascript
-module.exports = {
+To configure the project you will need to **copy the .env folder and paste it in the project folder**, then renaming it to **Config**. You can then go in the **config files and changes what you want**, explanations about each values can be found in the files above each of the value. If you have any question please go [here](https://github.com/orgs/MultivetisMc/discussions) and create a discussion.
 
-    "token" : "YourTokenHere"
-}
-```
-
-We will add a **big config files to configure other stuff** like embeds message in the future.
 **To test the application :**
 
 Simply run :
@@ -82,8 +74,8 @@ I recommended checking out the [GPL-3.0 lisence file](https://github.com/Multive
 │   Config.js
 │   Bot-setup-database.sql
 │
-├───Config
-│       The folder containing the configs of the bot.
+├───.env
+│       The folder containing the default configs of the bot.
 │
 ├───.github
 │       Essentials files for the github repos.
@@ -101,9 +93,6 @@ I recommended checking out the [GPL-3.0 lisence file](https://github.com/Multive
 │   │
 │   └───Tickets
 │           Tickets related commands.
-│
-├───Components
-│       Code parts used on multiple ereas by the bot.
 │
 ├───Events
 │       Discord related events.       

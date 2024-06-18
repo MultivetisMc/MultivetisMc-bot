@@ -1,4 +1,5 @@
-const { panelchannel } = require('../../Config/TicketConfig');
+const { panelchannel, panelembedtitle, panelembeddescription } = require('../../Config/TicketConfig');
+const { botembedfooter } = require("../../Config/GeneralConfig")
 const Discord = require('discord.js')
 
 module.exports = {
@@ -12,10 +13,10 @@ module.exports = {
     async run(bot, message) {
 
         const TicketPanel = new Discord.EmbedBuilder()
-        .setTitle("Ticket support de DoomCraft")
-        .setDescription("Ceci est réservée pour les **demandes de grade Influenceur** pour signalée des **problèmes majeur ou des membres** qui doivent rapide être sanctionnée.\nCréez un ticket **support** avec la réaction: 📩\nTout abus de ticket sera **sanctionnée**.")
+        .setTitle(panelembedtitle)
+        .setDescription(panelembeddescription)
         .setColor(bot.color)
-        .setFooter({ text: "Gérée par l'instance de DoomCraft's Bot", iconURL: bot.user.displayAvatarURL({ dynamic: true }) })
+        .setFooter({ text: botembedfooter, iconURL: bot.user.displayAvatarURL({ dynamic: true }) })
 
         const TicketPanelButton = new Discord.ActionRowBuilder()
         .addComponents(
@@ -32,7 +33,7 @@ module.exports = {
         .setTitle("Ticket support de DoomCraft envoyée")
         .setDescription(`Le panel du ticket support de DoomCraft a bien été envoyée dans le salon ${panelchannel.channel}`)
         .setColor(bot.color)
-        .setFooter({ text: "Gérée par l'instance de DoomCraft's Bot", iconURL: bot.user.displayAvatarURL({ dynamic: true }) })
+        .setFooter({ text: botembedfooter, iconURL: bot.user.displayAvatarURL({ dynamic: true }) })
         
         message.reply({embeds: [TicketPanelSendReply]})
     }

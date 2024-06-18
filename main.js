@@ -14,8 +14,6 @@ bot.function = {
     databaseConnect : require("./Fonctions/databaseConnect.js")
 }
 
-console.log(TokenBot)
-
 bot.login(TokenBot.token)
 loadCommands(bot, process.cwd() + '/Commandes');
 loadEvents(bot)

@@ -12,6 +12,9 @@ module.exports = {
     //The channel where the transcription of the ticket will be created on your Discord server.
     transcriptchannel: "1101134484973310032",
 
+    //The limit of ticket that can be opened by a user.
+    userticketlimit: 3,
+
     //The embed title of the ticket panel.
     panelembedtitle: "Ticket support de DoomCraft",
 

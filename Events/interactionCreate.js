@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 const transticket = require('discord-html-transcripts')
 const { executeQuery } = require("../Fonctions/databaseConnect.js") 
-const { panelrole, ticketcategory, transcriptchannel } = require("../Config/TicketConfig.js")
+const { panelrole, ticketcategory, transcriptchannel, userticketlimit } = require("../Config/TicketConfig.js")
 
 module.exports = async (bot, interaction, message) => {
 
@@ -32,6 +32,19 @@ module.exports = async (bot, interaction, message) => {
 
     if(interaction.customId === 'ticketpannel') {
 
+        const verifuserticketnumber = `SELECT * FROM tickets WHERE userID = ${interaction.user.id}`
+        const resultsverifuserticketnumber = executeQuery(verifuserticketnumber)
+        if(resultsverifuserticketnumber.length = userticketlimit) {
+
+            const userticketlimitembed = new Discord.EmbedBuilder()
+            .setColor(bot.color)
+            .setTitle('Vous avez dépassée la limite de ticket ouvert!')
+            .setDescription(`Vous avez déjà ${userticketlimit} tickets ouverts.`)
+            .setTimestamp()
+        
+            await interaction.reply({ embeds: [userticketlimitembed], ephemeral: true });
+        }
+
         const openTicketEmbed = new Discord.EmbedBuilder()
             .setTitle('Ticket en cours de création.')
             .setDescription(`Veuillez patienter...`)
@@ -41,7 +54,7 @@ module.exports = async (bot, interaction, message) => {
         const msg = await interaction.reply({ embeds: [openTicketEmbed], ephemeral: true });
         
         const channelTicket = await interaction.guild.channels.create({
-            name: `ticket-${interaction.user.username}`,
+            name: `🔖・ticket-${interaction.user.username}`,
             type: 0,
             parent: ticketcategory,
 
@@ -92,8 +105,7 @@ module.exports = async (bot, interaction, message) => {
 
             setTimeout(() => {
                 const embedTicketOpen = new Discord.EmbedBuilder()
-                    .setTitle("Votre ticket est ouvert!")
-                    .setDescription(`Merci d'avoir ouvert ce ticket !\nPour avoir de l'aide, merci de patientez le temps qu'un membre du staff arrive !`)
+                    .setDescription(`Le support vous répondra sous peu.\nPour fermer ce ticket, réagissez avec 🔒`)
                     .setColor(bot.color)
                     .setTimestamp()
 
@@ -106,13 +118,14 @@ module.exports = async (bot, interaction, message) => {
                         .setEmoji('🔒')
                 )
                     
-                channelTicket.send({ embeds: [embedTicketOpen], components: [closeTicket] });
+                channelTicket.send({text: `Bienvenue dans ton ticket ${interaction.user.id}`, embeds: [embedTicketOpen], components: [closeTicket] });
                 openTicketEmbed.setDescription(`Envoie de l'embed dans le ticket...`);
                 msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
             }, 2000);
 
             setTimeout(() => {
-                channelTicket.setTopic(`${interaction.user.id}`)
+                const userticketowner = `INSERT INTO tickets (channelID, userID) VALUES ('${channelTicket.id}', '${interaction.user.id}')`
+                executeQuery(userticketowner)
                 openTicketEmbed.setDescription(`Votre ticket est prêt !\n${channelTicket}`);
                 msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
                 channelTicket.send({ content: `<@${interaction.user.id}>` }).then(msg => {
@@ -151,20 +164,29 @@ module.exports = async (bot, interaction, message) => {
             .setTimestamp()
 
         const msg = await interaction.channel.send({embeds: [yesopenTicketEmbed]});
+
         setTimeout(async() => {
             yesopenTicketEmbed.setDescription(`Création du transcript...`);
             msg.edit({ embeds: [yesopenTicketEmbed], ephemeral: true });
+
         }, 2000);
+
         setTimeout(() => {
+
             yesopenTicketEmbed.setDescription(`Fermeture du ticket...`);
             msg.edit({ embeds: [yesopenTicketEmbed], ephemeral: true });
+
         }, 4000);
+
         setTimeout(async () => {
+
             const transcript = await transticket.createTranscript(interaction.channel, { limit: 1000000, reason: `Ticket ferme par ${interaction.user.tag}` });
+            const userticketowner = `DELETE FROM tickets WHERE channelID = ${interaction.channel.id}`
+            executeQuery(userticketowner)
             interaction.channel.delete();
             yesopenTicketEmbed.setDescription(`Votre ticket a été fermé sur le serveur \`${interaction.guild.name}\``);
-            user.send({ embeds: [yesopenTicketEmbed]});
             bot.channels.cache.get(transcriptchannel).send({files: [transcript]})
+
         }, 8000);
     }
 

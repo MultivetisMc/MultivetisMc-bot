@@ -89,9 +89,8 @@ CREATE TABLE `note` (
 --
 
 CREATE TABLE `tickets` (
-  `guildId` varchar(30) NOT NULL,
-  `category` varchar(30) NOT NULL,
-  `channel` varchar(30) NOT NULL
+  `channelID` varchar(255) NOT NULL,
+  `userID` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------

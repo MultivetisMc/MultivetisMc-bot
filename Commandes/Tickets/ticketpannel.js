@@ -20,7 +20,7 @@ module.exports = {
         const TicketPanelButton = new Discord.ActionRowBuilder()
         .addComponents(
             new Discord.ButtonBuilder()
-           .setCustomId("ticketpannel")
+           .setCustomId('ticketpannel')
            .setLabel("Créer un ticket support")
            .setStyle(Discord.ButtonStyle.Success)
            .setEmoji("📩")
@@ -30,7 +30,7 @@ module.exports = {
 
         const TicketPanelSendReply = new Discord.EmbedBuilder()
         .setTitle("Ticket support de DoomCraft envoyée")
-        .setDescription(`Le panel du ticket support de DoomCraft a bien été envoyée dans le salon ${panelchannel.name}`)
+        .setDescription(`Le panel du ticket support de DoomCraft a bien été envoyée dans le salon ${panelchannel.channel}`)
         .setColor(bot.color)
         .setFooter({ text: "Gérée par l'instance de DoomCraft's Bot", iconURL: bot.user.displayAvatarURL({ dynamic: true }) })
         

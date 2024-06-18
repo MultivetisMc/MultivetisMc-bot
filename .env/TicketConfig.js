@@ -9,6 +9,9 @@ module.exports = {
     //The role that will be allowed to see the ticket that are opened by users.
     panelrole: "856578488039505940",
 
+    //The channel where the transcription of the ticket will be created on your Discord server.
+    transcriptchannel: "1101134484973310032",
+
     //The embed title of the ticket panel.
     panelembedtitle: "Ticket support de DoomCraft",
 

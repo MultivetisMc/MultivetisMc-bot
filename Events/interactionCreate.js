@@ -38,66 +38,58 @@ module.exports = async (bot, interaction, message) => {
             .setTimestamp()
 
         const msg = await interaction.reply({ embeds: [openTicketEmbed], ephemeral: true });
-            setTimeout(async() => {
-                const channelTicket = await interaction.guild.channels.create({
-                    name: `ticket-${interaction.user.username}`,
-                    type: 0,
-                    parent: ticketcategory,
+        
+        const channelTicket = await interaction.guild.channels.create({
+            name: `ticket-${interaction.user.username}`,
+            type: 0,
+            parent: ticketcategory,
 
-                    permissionOverwrites: [
-                        {
-                            id: interaction.user.id,
-                            allow: [
-                                Discord.PermissionFlagsBits.ViewChannel,
-                                Discord.PermissionFlagsBits.SendMessages,
-                                Discord.PermissionFlagsBits.ReadMessageHistory,
-                                Discord.PermissionFlagsBits.EmbedLinks,
-                                Discord.PermissionFlagsBits.AttachFiles,
-                                Discord.PermissionFlagsBits.UseExternalEmojis,
-                                Discord.PermissionFlagsBits.AddReactions,
-                            ],
-                        },
-                        {
-                            id: interaction.guild.roles.cache.get(panelrole).id,
-                            allow: [
-                                Discord.PermissionFlagsBits.ViewChannel,
-                                Discord.PermissionFlagsBits.SendMessages,
-                                Discord.PermissionFlagsBits.ReadMessageHistory,
-                                Discord.PermissionFlagsBits.EmbedLinks,
-                                Discord.PermissionFlagsBits.AttachFiles,
-                                Discord.PermissionFlagsBits.UseExternalEmojis,
-                                Discord.PermissionFlagsBits.AddReactions,
-                                Discord.PermissionFlagsBits.ManageMessages,
-                                Discord.PermissionFlagsBits.ManageGuildExpressions,
-                            ]
-                        },
-                        {
-                            id: interaction.guild.roles.everyone.id,
-                            deny: [
-                                Discord.PermissionFlagsBits.ViewChannel,
-                                Discord.PermissionFlagsBits.SendMessages,
-                                Discord.PermissionFlagsBits.ReadMessageHistory,
-                                Discord.PermissionFlagsBits.EmbedLinks,
-                                Discord.PermissionFlagsBits.AttachFiles,
-                                Discord.PermissionFlagsBits.UseExternalEmojis,
-                                Discord.PermissionFlagsBits.AddReactions,
-                            ],
-                        },
+            permissionOverwrites: [
+                {
+                    id: interaction.user.id,
+                    allow: [
+                        Discord.PermissionFlagsBits.ViewChannel,
+                        Discord.PermissionFlagsBits.SendMessages,
+                        Discord.PermissionFlagsBits.ReadMessageHistory,
+                        Discord.PermissionFlagsBits.EmbedLinks,
+                        Discord.PermissionFlagsBits.AttachFiles,
+                        Discord.PermissionFlagsBits.UseExternalEmojis,
+                        Discord.PermissionFlagsBits.AddReactions,
                     ],
-                });
-                channelTicket.push({
-                    channelId: channel.id,
-                    userId: interaction.user.id,
-                    parentId: ticketcategory,
-                });
-                openTicketEmbed.setDescription(`Création du ticket...`);
-                msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
-            }, 2000);
+                },
+                {
+                    id: interaction.guild.roles.cache.get(panelrole).id,
+                    allow: [
+                        Discord.PermissionFlagsBits.ViewChannel,
+                        Discord.PermissionFlagsBits.SendMessages,
+                        Discord.PermissionFlagsBits.ReadMessageHistory,
+                        Discord.PermissionFlagsBits.EmbedLinks,
+                        Discord.PermissionFlagsBits.AttachFiles,
+                        Discord.PermissionFlagsBits.UseExternalEmojis,
+                        Discord.PermissionFlagsBits.AddReactions,
+                        Discord.PermissionFlagsBits.ManageMessages,
+                        Discord.PermissionFlagsBits.ManageGuildExpressions,
+                    ]
+                },
+                {
+                    id: interaction.guild.roles.everyone.id,
+                    deny: [
+                        Discord.PermissionFlagsBits.ViewChannel,
+                        Discord.PermissionFlagsBits.SendMessages,
+                        Discord.PermissionFlagsBits.ReadMessageHistory,
+                        Discord.PermissionFlagsBits.EmbedLinks,
+                        Discord.PermissionFlagsBits.AttachFiles,
+                        Discord.PermissionFlagsBits.UseExternalEmojis,
+                        Discord.PermissionFlagsBits.AddReactions,
+                    ],
+                },
+            ],
+        });
+                
+        openTicketEmbed.setDescription(`Création du ticket...`);
+        msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
 
             setTimeout(() => {
-                const storedChannelInfo = channelTicket[0];
-                const { channelId, parentId, userId } = storedChannelInfo;
-                const channel = interaction.bot.channels.cache.get(channelId);
                 const embedTicketOpen = new Discord.EmbedBuilder()
                     .setTitle("Votre ticket est ouvert!")
                     .setDescription(`Merci d'avoir ouvert ce ticket !\nPour avoir de l'aide, merci de patientez le temps qu'un membre du staff arrive !`)
@@ -109,26 +101,23 @@ module.exports = async (bot, interaction, message) => {
                     new Discord.ButtonBuilder()
                         .setCustomId('closeTicket')
                         .setLabel('Fermer le Ticket')
-                        .setStyle('Danger')
-                        .setEmoji('🔒'),
+                        .setStyle(Discord.ButtonStyle.Danger)
+                        .setEmoji('🔒')
                 )
                     
-                channel.send({ embeds: [embedTicketOpen], components: [closeTicket] });
+                channelTicket.send({ embeds: [embedTicketOpen], components: [closeTicket] });
                 openTicketEmbed.setDescription(`Envoie de l'embed dans le ticket...`);
                 msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
-            }, 4000);
+            }, 2000);
 
             setTimeout(() => {
-                const storedChannelInfo = channelTicket[0];
-                const { channelId, parentId, userId } = storedChannelInfo;
-                const channel = interaction.bot.channels.cache.get(channelId);
-                channel.setTopic(`${userId}`)
-                openTicketEmbed.setDescription(`Votre ticket est prêt !\n<#${channelId}>`);
+                channelTicket.setTopic(`${interaction.user.id}`)
+                openTicketEmbed.setDescription(`Votre ticket est prêt !\n${channelTicket}`);
                 msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
-                channel.send({ content: `<@${userId}>` }).then(msg => {
+                channelTicket.send({ content: `<@${interaction.user.id}>` }).then(msg => {
                     msg.delete();
                 });
-            }, 6000);
+            }, 4000);
     };
 
 

@@ -130,19 +130,18 @@ module.exports = async (bot, interaction, message) => {
                         .setEmoji('🔒')
                 )
                     
-                channelTicket.send({text: `Bienvenue dans ton ticket ${interaction.user.id}`, embeds: [embedTicketOpen], components: [closeTicket] });
+                channelTicket.send({content: `Bienvenue dans ton ticket <@${interaction.user.id}>`, embeds: [embedTicketOpen], components: [closeTicket] });
                 openTicketEmbed.setDescription(`Envoie de l'embed dans le ticket...`);
                 msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
             }, 2000);
 
             setTimeout(() => {
+
                 const userticketowner = `INSERT INTO tickets (channelID, userID, Claimed) VALUES ('${channelTicket.id}', '${interaction.user.id}', '0')`
                 executeQuery(userticketowner)
                 openTicketEmbed.setDescription(`Votre ticket est prêt !\n${channelTicket}`);
                 msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
-                channelTicket.send({ content: `<@${interaction.user.id}>` }).then(msg => {
-                    msg.delete();
-                });
+                
             }, 4000);
     };
 

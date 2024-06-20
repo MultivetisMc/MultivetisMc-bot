@@ -1,3 +1,5 @@
+const Discord = require("discord.js")
+
 module.exports = {
     
     //The category where the ticket channels will be created on your Discord server.
@@ -8,6 +10,9 @@ module.exports = {
 
     //The role that will be allowed to see the ticket that are opened by users.
     panelrole: "856578488039505940",
+
+    //The permissions of the role that will be allowed to claim the ticket that are opened by users to be the only one to reply to them.
+    claimingticketpermissions: Discord.PermissionFlagsBits.ManageMessages,
 
     //The channel where the transcription of the ticket will be created on your Discord server.
     transcriptchannel: "1101134484973310032",

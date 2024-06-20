@@ -32,9 +32,21 @@ module.exports = async (bot, interaction, message) => {
 
     if(interaction.customId === 'ticketpannel') {
 
-        const verifuserticketnumber = `SELECT * FROM tickets WHERE userID = ${interaction.user.id}`
-        const resultsverifuserticketnumber = executeQuery(verifuserticketnumber)
-        if(resultsverifuserticketnumber.length = userticketlimit) {
+        const verifuserticketnumber = `SELECT * FROM tickets WHERE userID = '${interaction.user.id}'`
+        const resultsverifuserticketnumber = await executeQuery(verifuserticketnumber)
+
+        if(resultsverifuserticketnumber.length == userticketlimit) {
+
+            const userticketlimitembed = new Discord.EmbedBuilder()
+            .setColor(bot.color)
+            .setTitle('Vous avez dépassée la limite de ticket ouvert!')
+            .setDescription(`Vous avez déjà ${userticketlimit} tickets ouverts.`)
+            .setTimestamp()
+        
+            await interaction.reply({ embeds: [userticketlimitembed], ephemeral: true });
+        }
+
+        if(resultsverifuserticketnumber.length >= userticketlimit) {
 
             const userticketlimitembed = new Discord.EmbedBuilder()
             .setColor(bot.color)
@@ -124,7 +136,7 @@ module.exports = async (bot, interaction, message) => {
             }, 2000);
 
             setTimeout(() => {
-                const userticketowner = `INSERT INTO tickets (channelID, userID) VALUES ('${channelTicket.id}', '${interaction.user.id}')`
+                const userticketowner = `INSERT INTO tickets (channelID, userID, Claimed) VALUES ('${channelTicket.id}', '${interaction.user.id}', '0')`
                 executeQuery(userticketowner)
                 openTicketEmbed.setDescription(`Votre ticket est prêt !\n${channelTicket}`);
                 msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
@@ -153,7 +165,6 @@ module.exports = async (bot, interaction, message) => {
     };
 
     if(interaction.customId === 'yescloseticket') {
-        const user = await bot.users.fetch(interaction.channel.topic);
         interaction.deferUpdate();
         await interaction.message.edit({ components: [] });
 

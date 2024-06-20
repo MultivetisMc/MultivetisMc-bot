@@ -91,6 +91,7 @@ CREATE TABLE `note` (
 CREATE TABLE `tickets` (
   `channelID` varchar(255) NOT NULL,
   `userID` varchar(255) NOT NULL
+  `Claimed` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------

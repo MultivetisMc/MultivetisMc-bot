@@ -1,14 +1,6 @@
 const mysql = require(`mysql2/promise`);
 const databaseConfig = require("../Config/DBConfig")
 
-//const databaseConfig = {
-//    connectionLimit: "10",
-//    host: "localhost",
-//    user: "root",
-//    password: "",
-//    database: "multivetismc-bot",
-//};
-
 const pool = mysql.createPool(databaseConfig);
 
 async function executeQuery(query) {
@@ -16,11 +8,11 @@ async function executeQuery(query) {
     try {
         connection = await pool.getConnection();
         const [rows] = await connection.execute(query);
+        await connection.release();
         return rows;
     } catch (error) {
-        console.error(`Erreur lors de l'exécution de la requête: \n`, error);
-    } finally {
-        if (!connection) return connection.release();
+        console.error(error);
+        return error;
     }
 }
 

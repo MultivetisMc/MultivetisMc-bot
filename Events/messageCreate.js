@@ -27,39 +27,29 @@ module.exports = async (bot, message) => {
 
                 if(TicketClaimedResults == 0) {
                     
-                    await message.guild.channel.edit({
+                    await message.channel.permissionOverwrites.create(message.author.id, {
+                        ViewChannel: true,
+                        SendMessages: true,
+                        ReadMessageHistory: true,
+                        EmbedLinks: true,
+                        AttachFiles: true,
+                        UseExternalEmojis: true,
+                        AddReactions: true,
+                        ManageMessages: true,
+                        ManageGuildExpressions: true,
+                    })
+                    await message.channel.permissionOverwrites.edit(message.guild.roles.cache.get(panelrole).id, {
 
-                        permissionOverwrites: [
-                            {
-                                id: message.guild.roles.cache.get(panelrole).id,
-                                deny: [
-                                    Discord.PermissionFlagsBits.ViewChannel,
-                                    Discord.PermissionFlagsBits.SendMessages,
-                                    Discord.PermissionFlagsBits.ReadMessageHistory,
-                                    Discord.PermissionFlagsBits.EmbedLinks,
-                                    Discord.PermissionFlagsBits.AttachFiles,
-                                    Discord.PermissionFlagsBits.UseExternalEmojis,
-                                    Discord.PermissionFlagsBits.AddReactions,
-                                    Discord.PermissionFlagsBits.ManageMessages,
-                                    Discord.PermissionFlagsBits.ManageGuildExpressions,
-                                ]
-                            },
-                            {
-                                id: message.author.id,
-                                allow: [
-                                    Discord.PermissionFlagsBits.ViewChannel,
-                                    Discord.PermissionFlagsBits.SendMessages,
-                                    Discord.PermissionFlagsBits.ReadMessageHistory,
-                                    Discord.PermissionFlagsBits.EmbedLinks,
-                                    Discord.PermissionFlagsBits.AttachFiles,
-                                    Discord.PermissionFlagsBits.UseExternalEmojis,
-                                    Discord.PermissionFlagsBits.AddReactions,
-                                    Discord.PermissionFlagsBits.ManageMessages,
-                                    Discord.PermissionFlagsBits.ManageGuildExpressions,
-                                ]
-                            }
-                        ],
-                    });
+                        ViewChannel: false,
+                        SendMessages: false,
+                        ReadMessageHistory: false,
+                        EmbedLinks: false,
+                        AttachFiles: false,
+                        UseExternalEmojis: false,
+                        AddReactions: false,
+                        ManageMessages: false,
+                        ManageGuildExpressions: false,
+                    })
 
                     const TicketClaimed = `UPDATE tickets SET Claimed = '1' WHERE channelID = '${messageSendChannel}' AND userID = '${messageSendUser}'`
                     await executeQuery(TicketClaimed)

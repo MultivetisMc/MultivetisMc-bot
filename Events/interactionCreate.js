@@ -1,5 +1,7 @@
 const Discord = require("discord.js")
+const transticket = require('discord-html-transcripts')
 const { executeQuery } = require("../Fonctions/databaseConnect.js") 
+const { panelrole, ticketcategory, transcriptchannel, userticketlimit } = require("../Config/TicketConfig.js")
 
 module.exports = async (bot, interaction, message) => {
 
@@ -28,6 +30,191 @@ module.exports = async (bot, interaction, message) => {
         }
     }
 
+    if(interaction.customId === 'ticketpannel') {
+
+        const verifuserticketnumber = `SELECT * FROM tickets WHERE userID = '${interaction.user.id}'`
+        const resultsverifuserticketnumber = await executeQuery(verifuserticketnumber)
+
+        if(resultsverifuserticketnumber.length == userticketlimit) {
+
+            const userticketlimitembed = new Discord.EmbedBuilder()
+            .setColor(bot.color)
+            .setTitle('Vous avez dépassée la limite de ticket ouvert!')
+            .setDescription(`Vous avez déjà ${userticketlimit} tickets ouverts.`)
+            .setTimestamp()
+        
+            await interaction.reply({ embeds: [userticketlimitembed], ephemeral: true });
+        }
+
+        if(resultsverifuserticketnumber.length >= userticketlimit) {
+
+            const userticketlimitembed = new Discord.EmbedBuilder()
+            .setColor(bot.color)
+            .setTitle('Vous avez dépassée la limite de ticket ouvert!')
+            .setDescription(`Vous avez déjà ${userticketlimit} tickets ouverts.`)
+            .setTimestamp()
+        
+            await interaction.reply({ embeds: [userticketlimitembed], ephemeral: true });
+        }
+
+        const openTicketEmbed = new Discord.EmbedBuilder()
+            .setTitle('Ticket en cours de création.')
+            .setDescription(`Veuillez patienter...`)
+            .setColor(bot.color)
+            .setTimestamp()
+
+        const msg = await interaction.reply({ embeds: [openTicketEmbed], ephemeral: true });
+        
+        const channelTicket = await interaction.guild.channels.create({
+            name: `🔖・ticket-${interaction.user.username}`,
+            type: 0,
+            parent: ticketcategory,
+
+            permissionOverwrites: [
+                {
+                    id: interaction.user.id,
+                    allow: [
+                        Discord.PermissionFlagsBits.ViewChannel,
+                        Discord.PermissionFlagsBits.SendMessages,
+                        Discord.PermissionFlagsBits.ReadMessageHistory,
+                        Discord.PermissionFlagsBits.EmbedLinks,
+                        Discord.PermissionFlagsBits.AttachFiles,
+                        Discord.PermissionFlagsBits.UseExternalEmojis,
+                        Discord.PermissionFlagsBits.AddReactions,
+                    ],
+                },
+                {
+                    id: interaction.guild.roles.cache.get(panelrole).id,
+                    allow: [
+                        Discord.PermissionFlagsBits.ViewChannel,
+                        Discord.PermissionFlagsBits.SendMessages,
+                        Discord.PermissionFlagsBits.ReadMessageHistory,
+                        Discord.PermissionFlagsBits.EmbedLinks,
+                        Discord.PermissionFlagsBits.AttachFiles,
+                        Discord.PermissionFlagsBits.UseExternalEmojis,
+                        Discord.PermissionFlagsBits.AddReactions,
+                        Discord.PermissionFlagsBits.ManageMessages,
+                        Discord.PermissionFlagsBits.ManageGuildExpressions,
+                    ]
+                },
+                {
+                    id: interaction.guild.roles.everyone.id,
+                    deny: [
+                        Discord.PermissionFlagsBits.ViewChannel,
+                        Discord.PermissionFlagsBits.SendMessages,
+                        Discord.PermissionFlagsBits.ReadMessageHistory,
+                        Discord.PermissionFlagsBits.EmbedLinks,
+                        Discord.PermissionFlagsBits.AttachFiles,
+                        Discord.PermissionFlagsBits.UseExternalEmojis,
+                        Discord.PermissionFlagsBits.AddReactions,
+                    ],
+                },
+            ],
+        });
+                
+        openTicketEmbed.setDescription(`Création du ticket...`);
+        msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
+
+            setTimeout(() => {
+                const embedTicketOpen = new Discord.EmbedBuilder()
+                    .setDescription(`Le support vous répondra sous peu.\nPour fermer ce ticket, réagissez avec 🔒`)
+                    .setColor(bot.color)
+                    .setTimestamp()
+
+                const closeTicket = new Discord.ActionRowBuilder()
+                .addComponents(
+                    new Discord.ButtonBuilder()
+                        .setCustomId('closeTicket')
+                        .setLabel('Fermer le Ticket')
+                        .setStyle(Discord.ButtonStyle.Danger)
+                        .setEmoji('🔒')
+                )
+                    
+                channelTicket.send({content: `Bienvenue dans ton ticket <@${interaction.user.id}>. Les <@&${panelrole}>s arrive bientôt!`, embeds: [embedTicketOpen], components: [closeTicket] });
+                openTicketEmbed.setDescription(`Envoie de l'embed dans le ticket...`);
+                msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
+            }, 2000);
+
+            setTimeout(() => {
+
+                const userticketowner = `INSERT INTO tickets (channelID, userID, Claimed) VALUES ('${channelTicket.id}', '${interaction.user.id}', '0')`
+                executeQuery(userticketowner)
+                openTicketEmbed.setDescription(`Votre ticket est prêt !\n${channelTicket}`);
+                msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
+                
+            }, 4000);
+    };
+
+    if(interaction.customId === 'closeTicket') {
+        interaction.deferUpdate();
+
+        const yesnoClose = new Discord.ActionRowBuilder()
+        .addComponents(
+            new Discord.ButtonBuilder()
+                .setCustomId('yescloseticket')
+                .setLabel('Oui')
+                .setStyle(Discord.ButtonStyle.Success),
+            new Discord.ButtonBuilder()
+                .setCustomId('nocloseticket')
+                .setLabel('Non')
+                .setStyle(Discord.ButtonStyle.Danger),
+        )
+
+        return interaction.message.edit({ components: [yesnoClose] });
+    };
+
+    if(interaction.customId === 'yescloseticket') {
+        interaction.deferUpdate();
+        await interaction.message.edit({ components: [] });
+
+        const yesopenTicketEmbed = new Discord.EmbedBuilder()
+            .setTitle('Ticket')
+            .setDescription(`Veuillez patienter...`)
+            .setColor(bot.color)
+            .setTimestamp()
+
+        const msg = await interaction.channel.send({embeds: [yesopenTicketEmbed]});
+
+        setTimeout(async() => {
+            yesopenTicketEmbed.setDescription(`Création du transcript...`);
+            msg.edit({ embeds: [yesopenTicketEmbed], ephemeral: true });
+
+        }, 2000);
+
+        setTimeout(() => {
+
+            yesopenTicketEmbed.setDescription(`Fermeture du ticket...`);
+            msg.edit({ embeds: [yesopenTicketEmbed], ephemeral: true });
+
+        }, 4000);
+
+        setTimeout(async () => {
+
+            const transcript = await transticket.createTranscript(interaction.channel, { limit: 1000000, reason: `Ticket ferme par ${interaction.user.tag}` });
+            const userticketowner = `DELETE FROM tickets WHERE channelID = ${interaction.channel.id}`
+            executeQuery(userticketowner)
+            interaction.channel.delete();
+            yesopenTicketEmbed.setDescription(`Votre ticket a été fermé sur le serveur \`${interaction.guild.name}\``);
+            bot.channels.cache.get(transcriptchannel).send({files: [transcript]})
+
+        }, 8000);
+    }
+
+    if(interaction.customId === 'nocloseticket') {
+        interaction.deferUpdate();
+
+        const closeTicket = new Discord.ActionRowBuilder()
+        .addComponents(
+            new Discord.ButtonBuilder()
+                .setCustomId('closeTicket')
+                .setLabel('Fermer le Ticket')
+                .setStyle(Discord.ButtonStyle.Danger)
+                .setEmoji('🔒'),
+        )
+
+        return interaction.message.edit({ components: [closeTicket] });
+    }
+
     if (interaction.customId === "unwarn") {
         if(interaction.isButton()) {
 
@@ -42,7 +229,7 @@ module.exports = async (bot, interaction, message) => {
     }
 
     if (interaction.customId === "help") {
-        if(interaction.isStringSelectMenu()) {
+        if(interaction.isSelectMenu()) {
             const collector = interaction.createMessageComponentCollector()
 
             collector.on('collect', async interaction => {

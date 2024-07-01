@@ -12,23 +12,21 @@ The MultivetisMc bot is coded in JavaScript using the discord.js packages to com
 | MySQL              | 8.2.x or higher  | The database of the bot      |
 | git                | 2.25.1 or higher | Commands for Github          |
 
-**All the dependecies in the packages.json files.**
+**After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :**
+
+```
+npm install
+```
 
 ## Recommanded to run/program the software
 
 | Software           | Version          | More information             |
 | ------------------ | ---------------- | ---------------------------- |
 | phpMyAdmin         | 5.2.1 or higher  | Interface for MySQL          |
-| XAMPP              | 8.2.4 or higher  | Bundles MysQL and phpMyAdmin |
+| XAMPP              | 8.2.4 or higher  | Bundles MySQL and phpMyAdmin |
 | Visual Studio Code | 1.86.2 or higher | Recommended IDE              |
 
 ## Setting up your environnement whitout docker
-
-**After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :**
-
-```
-npm install
-```
 
 **Doing the database installation :**
 
@@ -52,10 +50,6 @@ node main
 I recommended checking out the [GPL-3.0 lisence file](https://github.com/MultivetisMc/MultivetisMc-bot/blob/main/LICENSE) before using the software. If you whant to help us code the software, I recommended you also checking out the [Code of conduct]() and the [CONTRIBUITING.md file]().
 
 ## Setting up your environnement whit docker :
-
-### Comming soon...
-
-# What's next for the project?
 
 ### Comming soon...
 

@@ -67,7 +67,7 @@ module.exports = {
         if(choiceremove == "Non") return;
         if(choiceremove == "Oui") {
 
-            await message.channel.permissionOverwrites.delete(message.user.id, {
+            await message.channel.permissionOverwrites.create(message.user.id, {
                 SendMessages: false,
                 ReadMessageHistory: false,
                 ViewChannel: false

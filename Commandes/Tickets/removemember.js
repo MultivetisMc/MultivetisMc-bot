@@ -52,6 +52,6 @@ module.exports = {
             .setTimestamp();
             
             message.channel.send({embeds: [RemoveMemberSucces]})
-        }, 4000);
+        }, 2000);
     }
 }

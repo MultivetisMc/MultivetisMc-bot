@@ -8,7 +8,7 @@ module.exports = {
     description: "Envois du pannel de ticket!",
     permission: Discord.PermissionFlagsBits.ManageChannels,
     dm: false,
-    category: "・Tickets",
+    category: "🔖・Tickets",
 
     async run(bot, message) {
 

@@ -28,6 +28,13 @@ module.exports = async (bot, interaction, message) => {
             let sortie = choices.filter(c => c.includes(entry))
             await interaction.respond(entry === "" ? sortie.map(c => ({name: c, value: c})) : sortie.map(c => ({name: c, value: c})))
         }
+
+        if(interaction.commandName === "addmember") {
+
+            let choices = ["Oui", "Non"]
+            let sortie = choices.filter(c => c.includes(entry))
+            await interaction.respond(entry === "" ? sortie.map(c => ({name: c, value: c})) : sortie.map(c => ({name: c, value: c})))
+        }
     }
 
     if(interaction.customId === 'ticketpannel') {
@@ -130,7 +137,7 @@ module.exports = async (bot, interaction, message) => {
                         .setEmoji('🔒')
                 )
                     
-                channelTicket.send({content: `Bienvenue dans ton ticket <@${interaction.user.id}>. Les <@&${panelrole}>s arrive bientôt!`, embeds: [embedTicketOpen], components: [closeTicket] });
+                channelTicket.send({content: `Bienvenue dans ton ticket ${interaction.user}. Les <@&${panelrole}>s arrive bientôt!`, embeds: [embedTicketOpen], components: [closeTicket] });
                 openTicketEmbed.setDescription(`Envoie de l'embed dans le ticket...`);
                 msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
             }, 2000);

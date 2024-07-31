@@ -1,7 +1,6 @@
 ### Hello, and thank you for contributing to the MultivetisMc bot!
 In order for everyone to have the best experience possible, we have a few guidelines that everyone must follow.
 - For all things on GitHub, please make sure you follow the [code of conduct](CODE_OF_CONDUCT.md).
-- When submitting a pull request, please make sure you're using the [pull request template](PULL_REQUEST_TEMPLATE.md).
 
 ### Requirements
 There are some specific requirements you need to follow when making and proposing changes to MultivetisMc bot. This ensures order, consistency, and organization.  

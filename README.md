@@ -12,23 +12,21 @@ The MultivetisMc bot is coded in JavaScript using the discord.js packages to com
 | MySQL              | 8.2.x or higher  | The database of the bot      |
 | git                | 2.25.1 or higher | Commands for Github          |
 
-**All the dependecies in the packages.json files.**
+**After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :**
+
+```
+npm install
+```
 
 ## Recommanded to run/program the software
 
 | Software           | Version          | More information             |
 | ------------------ | ---------------- | ---------------------------- |
 | phpMyAdmin         | 5.2.1 or higher  | Interface for MySQL          |
-| XAMPP              | 8.2.4 or higher  | Bundles MysQL and phpMyAdmin |
+| XAMPP              | 8.2.4 or higher  | Bundles MySQL and phpMyAdmin |
 | Visual Studio Code | 1.86.2 or higher | Recommended IDE              |
 
 ## Setting up your environnement whitout docker
-
-**After pulling the repo, install dependencies (add the '-D' argument to install dev dependencies) :**
-
-```
-npm install
-```
 
 **Doing the database installation :**
 
@@ -37,18 +35,10 @@ Pretty simple, take the **.sql file in the code** and drag and drop it into your
 mysql -u theusername -p yourpassword db_name < Bot-setup-database.sql
 ```
 
-**About the Config files** :
+**Configuration of the project** :
 
-You have to create your own config.js file and adding your token of bot.
-Here is what it should looks like :
-```javascript
-module.exports = {
+To configure the project you will need to **copy the .env folder and paste it in the project folder**, then renaming it to **Config**. You can then go in the **config files and changes what you want**, explanations about each values can be found in the files above each of the value. If you have any question please go [here](https://github.com/orgs/MultivetisMc/discussions) and create a discussion.
 
-    "token" : "YourTokenHere"
-}
-```
-
-We will add a **big config files to configure other stuff** like embeds message in the future.
 **To test the application :**
 
 Simply run :
@@ -60,10 +50,6 @@ node main
 I recommended checking out the [GPL-3.0 lisence file](https://github.com/MultivetisMc/MultivetisMc-bot/blob/main/LICENSE) before using the software. If you whant to help us code the software, I recommended you also checking out the [Code of conduct]() and the [CONTRIBUITING.md file]().
 
 ## Setting up your environnement whit docker :
-
-### Comming soon...
-
-# What's next for the project?
 
 ### Comming soon...
 
@@ -82,8 +68,8 @@ I recommended checking out the [GPL-3.0 lisence file](https://github.com/Multive
 │   Config.js
 │   Bot-setup-database.sql
 │
-├───Config
-│       The folder containing the configs of the bot.
+├───.env
+│       The folder containing the default configs of the bot.
 │
 ├───.github
 │       Essentials files for the github repos.
@@ -101,9 +87,6 @@ I recommended checking out the [GPL-3.0 lisence file](https://github.com/Multive
 │   │
 │   └───Tickets
 │           Tickets related commands.
-│
-├───Components
-│       Code parts used on multiple ereas by the bot.
 │
 ├───Events
 │       Discord related events.       

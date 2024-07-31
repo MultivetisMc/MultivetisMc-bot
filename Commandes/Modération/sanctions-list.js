@@ -34,7 +34,7 @@ module.exports = {
 
         let Embed = new Discord.EmbedBuilder()
             .setColor(bot.color)
-            .setTitle(`Infractons de ${user.tag}`)
+            .setTitle(`Infractions de ${user.tag}`)
             .setThumbnail(user.displayAvatarURL({dynamic: true}))
             .setTimestamp()
             .setFooter({text: "Infractions"})

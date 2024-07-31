@@ -122,7 +122,7 @@ module.exports = async (bot, interaction, message) => {
         openTicketEmbed.setDescription(`Création du ticket...`);
         msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
 
-            setTimeout(() => {
+            setTimeout(async () => {
                 const embedTicketOpen = new Discord.EmbedBuilder()
                     .setDescription(`Le support vous répondra sous peu.\nPour fermer ce ticket, réagissez avec 🔒`)
                     .setColor(bot.color)
@@ -137,11 +137,11 @@ module.exports = async (bot, interaction, message) => {
                         .setEmoji('🔒')
                 )
                     
-                const ticketsupportmsg = channelTicket.send({content: `Bienvenue dans ton ticket ${interaction.user}. Les <@&${panelrole}>s arrive bientôt!`, embeds: [embedTicketOpen], components: [closeTicket] });
+                const ticketsupportmsg = await channelTicket.send({content: `Bienvenue dans ton ticket ${interaction.user}. Les <@&${panelrole}>s arrive bientôt!`, embeds: [embedTicketOpen], components: [closeTicket] });
+                await ticketsupportmsg.pin();
                 openTicketEmbed.setDescription(`Envoie de l'embed dans le ticket...`);
-                msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
+                await msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
 
-                ticketsupportmsg.pin().then()
             }, 2000);
 
             setTimeout(() => {

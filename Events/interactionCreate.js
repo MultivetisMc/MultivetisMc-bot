@@ -173,7 +173,7 @@ module.exports = async (bot, interaction, message) => {
     };
 
     if(interaction.customId === 'yescloseticket') {
-        interaction.reply();
+        interaction.deferUpdate();
 
         const ticketOwnerSearch = `SELECT * FROM tickets WHERE channelID = '${interaction.channel.id}'`
         const ticketOwnerResults = await executeQuery(ticketOwnerSearch)

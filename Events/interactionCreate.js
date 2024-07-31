@@ -137,9 +137,11 @@ module.exports = async (bot, interaction, message) => {
                         .setEmoji('🔒')
                 )
                     
-                channelTicket.send({content: `Bienvenue dans ton ticket ${interaction.user}. Les <@&${panelrole}>s arrive bientôt!`, embeds: [embedTicketOpen], components: [closeTicket] });
+                const ticketsupportmsg = channelTicket.send({content: `Bienvenue dans ton ticket ${interaction.user}. Les <@&${panelrole}>s arrive bientôt!`, embeds: [embedTicketOpen], components: [closeTicket] });
                 openTicketEmbed.setDescription(`Envoie de l'embed dans le ticket...`);
                 msg.edit({ embeds: [openTicketEmbed], ephemeral: true });
+
+                ticketsupportmsg.pin().then()
             }, 2000);
 
             setTimeout(() => {
@@ -172,6 +174,36 @@ module.exports = async (bot, interaction, message) => {
 
     if(interaction.customId === 'yescloseticket') {
         interaction.deferUpdate();
+
+        const ticketOwnerSearch = `SELECT * FROM tickets WHERE channelID = '${interaction.channel.id}'`
+        const ticketOwnerResults = await executeQuery(ticketOwnerSearch)
+        const ticketOwnerArray1 = ticketOwnerResults.map(result => result.userID);
+
+        for (const userID of ticketOwnerArray1) {
+            await interaction.channel.permissionOverwrites.edit(userID, {
+                SendMessages: false,
+                ReadMessageHistory: false,
+                ViewChannel: false,
+            });
+        }
+
+        const yesnoClose = new Discord.ActionRowBuilder()
+        .addComponents(
+            new Discord.ButtonBuilder()
+                .setCustomId('yescloseticketstaff')
+                .setLabel('Oui')
+                .setStyle(Discord.ButtonStyle.Success),
+            new Discord.ButtonBuilder()
+                .setCustomId('nocloseticketstaff')
+                .setLabel('Non')
+                .setStyle(Discord.ButtonStyle.Danger),
+        )
+
+        return interaction.message.edit({ components: [yesnoClose] });
+    }
+    
+    if(interaction.customId === 'yescloseticketstaff') {
+        interaction.deferUpdate()
         await interaction.message.edit({ components: [] });
 
         const yesopenTicketEmbed = new Discord.EmbedBuilder()
@@ -210,6 +242,33 @@ module.exports = async (bot, interaction, message) => {
     if(interaction.customId === 'nocloseticket') {
         interaction.deferUpdate();
 
+        const closeTicket = new Discord.ActionRowBuilder()
+        .addComponents(
+            new Discord.ButtonBuilder()
+                .setCustomId('closeTicket')
+                .setLabel('Fermer le Ticket')
+                .setStyle(Discord.ButtonStyle.Danger)
+                .setEmoji('🔒'),
+        )
+
+        return interaction.message.edit({ components: [closeTicket] });
+    }
+
+    if(interaction.customId === 'nocloseticketstaff') {
+        interaction.deferUpdate();
+
+        const ticketOwnerSearch = `SELECT * FROM tickets WHERE channelID = '${interaction.channel.id}'`
+        const ticketOwnerResults = await executeQuery(ticketOwnerSearch)
+        const ticketOwnerArray1 = ticketOwnerResults.map(result => result.userID);
+
+        for (const userID of ticketOwnerArray1) {
+            await interaction.channel.permissionOverwrites.edit(userID, {
+                SendMessages: true,
+                ReadMessageHistory: true,
+                ViewChannel: true,
+            });
+        }
+                
         const closeTicket = new Discord.ActionRowBuilder()
         .addComponents(
             new Discord.ButtonBuilder()

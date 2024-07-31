@@ -173,7 +173,7 @@ module.exports = async (bot, interaction, message) => {
     };
 
     if(interaction.customId === 'yescloseticket') {
-        interaction.deferUpdate();
+        interaction.reply();
 
         const ticketOwnerSearch = `SELECT * FROM tickets WHERE channelID = '${interaction.channel.id}'`
         const ticketOwnerResults = await executeQuery(ticketOwnerSearch)
@@ -309,7 +309,7 @@ module.exports = async (bot, interaction, message) => {
                 .setTitle(`Commandes de la catégorie ${category.toLowerCase()}`)
                 .setDescription(`${commandString}`)
                 .setColor(bot.color)
-                .setFooter({ text: "Gérée par l'instance de Peperehobbits01's Bot", iconURL: bot.user.displayAvatarURL({ dynamic: true }) })
+                .setFooter({ text: "Gérée par l'instance de DoomCraft's Bot", iconURL: bot.user.displayAvatarURL({ dynamic: true }) })
                 .setTimestamp()
                 .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
                 

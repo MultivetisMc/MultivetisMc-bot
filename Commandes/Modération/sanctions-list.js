@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const { executeQuery } = require("../../Fonctions/databaseConnect");
+const { formatDuration } = require("../../Fonctions/formatDuration")
 
 module.exports = {
     name: "sanctions-list",
@@ -18,12 +19,30 @@ module.exports = {
     ],
 
     async run(bot, message, args) {
+
         let user = args.getUser("membre");
-        if (!user) return message.reply("Aucun utilisateur sélectionné !");
         let member = message.guild.members.cache.get(user.id);
         if (!member) return message.reply("Aucun utilisateur sélectionné !");
 
         await message.deferReply();
+        if (!user) {
+
+            const querySanction = `
+            SELECT 'note' AS type, note AS id, author, reason, date, NULL AS time FROM note WHERE guild = '${message.guildId}'
+            UNION ALL
+            SELECT 'warn' AS type, warn AS id, author, reason, date, NULL AS time FROM warn WHERE guild = '${message.guildId}'
+            UNION ALL
+            SELECT 'mute' AS type, mute AS id, author, reason, date, time FROM mute WHERE guild = '${message.guildId}'
+            UNION ALL
+            SELECT 'kick' AS type, kick AS id, author, reason, date, NULL AS time FROM kick WHERE guild = '${message.guildId}'
+            UNION ALL
+            SELECT 'ban' AS type, ban AS id, author, reason, date, NULL AS time FROM ban WHERE guild = '${message.guildId}'
+            `;
+            
+            const resultsSanction = await executeQuery(querySanction);
+
+            if (resultsSanction.length < 1) return message.reply("Aucune sanction trouvée pour ce serveur.");
+        }
 
         const querySanctionMember = `
             SELECT 'note' AS type, note AS id, author, reason, date, NULL AS time FROM note WHERE guild = '${message.guildId}' AND user = '${user.id}'
@@ -36,6 +55,7 @@ module.exports = {
             UNION ALL
             SELECT 'ban' AS type, ban AS id, author, reason, date, NULL AS time FROM ban WHERE guild = '${message.guildId}' AND user = '${user.id}'
         `;
+
         const resultsSanctionMember = await executeQuery(querySanctionMember);
 
         if (resultsSanctionMember.length < 1) return message.reply("Aucune sanction trouvée pour cet utilisateur.");
@@ -54,7 +74,7 @@ module.exports = {
             let authorTag = (await bot.users.fetch(result.author)).tag;
             let fieldName = `${result.type.charAt(0).toUpperCase() + result.type.slice(1)} n°${i + 1}`;
             let fieldValue = `> **Auteur** : ${authorTag}\n> **ID** : \`${result.id}\`\n> **Raison** : \`${result.reason}\`\n> **Date** : <t:${Math.floor(parseInt(result.date) / 1000)}:f>`;
-            if (result.type === 'mute') fieldValue += `\n> **Temps** : ${result.time}`;
+            if (result.type === 'mute') fieldValue += `\n> **Temps** : ${formatDuration(result.time)}`;
             embedSanctionMember.addFields([{ name: fieldName, value: fieldValue }]);
         }
 

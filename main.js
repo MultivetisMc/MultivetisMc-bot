@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const bot = new Discord.Client({intents:3276799})
 const loadCommands = require("./Loaders/loadCommands")
 const loadEvents = require("./Loaders/loadEvents")
-const { BotColor } = require("./Config/GeneralConfig.js")
+const { BotColor } = require("./Config/GeneralConfig.json")
 const TokenBot = require("./Config/Token.js")
 
 bot.commands = new Discord.Collection()

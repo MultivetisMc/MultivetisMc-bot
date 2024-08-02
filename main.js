@@ -10,8 +10,6 @@ bot.buttons = new Discord.Collection()
 bot.color = BotColor;
 bot.function = {
     createId: require("./Fonctions/createId.js"),
-    levenshteinDistance: require("./Fonctions/levenshteinDistance.js"),
-    databaseConnect : require("./Fonctions/databaseConnect.js")
 }
 
 bot.login(TokenBot.token)
